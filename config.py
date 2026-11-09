@@ -6,15 +6,19 @@ BASE_DIR = Path(__file__).resolve().parent
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
 LLM_MODEL = os.getenv("LLM_MODEL", "qwen2.5:7b")
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.1"))
-# TODO : LLM_TIMEOUT (entier, 120 secondes par défaut)
-# TODO : LLM_NUM_CTX (entier, 8192 par défaut) : taille de la fenêtre de contexte
+LLM_TIMEOUT = int(os.getenv("LLM_TIMEOUT", "120"))
+LLM_NUM_CTX = int(os.getenv("LLM_NUM_CTX", "8192"))
 # --- Données ----------------------------------------------------------
 DB_PATH = Path(os.getenv("DB_PATH", BASE_DIR / "data" / "ecommerce.db"))
-# TODO : DOCS_DIR, le dossier des documents métier (data/docs)
+DOCS_DIR = Path(os.getenv("DOCS_DIR", BASE_DIR / "data" / "docs"))
 # --- Recherche documentaire (RAG) ------------------------------------
 EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-# TODO : CHUNK_SIZE = 500, CHUNK_OVERLAP = 100, TOP_K = 3
+CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "500"))
+CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "100"))
+TOP_K = int(os.getenv("TOP_K", "3"))
 # --- Agent ------------------------------------------------------------
-# TODO : MAX_STEPS = 5, MAX_HISTORY_TURNS = 6, SQL_MAX_ROWS = 50
+MAX_STEPS = int(os.getenv("MAX_STEPS", "5"))
+MAX_HISTORY_TURNS = int(os.getenv("MAX_HISTORY_TURNS", "6"))
+SQL_MAX_ROWS = int(os.getenv("SQL_MAX_ROWS", "50"))
 # --- Journaux --------------------------------------------------------
 LOG_DIR = BASE_DIR / "logs"

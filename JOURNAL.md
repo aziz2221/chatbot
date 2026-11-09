@@ -292,4 +292,75 @@ La correction envisagée consiste à privilégier IPv4 dans la politique de sél
 Important : le diagnostic IPv6 est établi par les tests réalisés. La correction par priorité IPv4 doit être considérée comme validée uniquement après confirmation du téléchargement réussi de qwen2.5:7b.
 
 
+1. Pourquoi calculer BASE_DIR à partir de __file__ plutôt que du dossier courant ?
+__file__ indique l'emplacement du fichier Python en cours d'exécution. Cela permet de retrouver le dossier du projet de manière fiable, même si le script est lancé depuis un autre dossier.
+
+
+
+2. Pourquoi convertir avec float() ou int() les valeurs lues par os.getenv ?
+os.getenv() renvoie les valeurs des variables d'environnement sous forme de texte (str).
+
+Il faut donc les convertir pour pouvoir les utiliser comme des nombres dans le programme.
+- float() sert à convertir un nombre décimal, par exemple une température : 0.1.
+- int() sert à convertir un nombre entier, par exemple un nombre maximum de résultats : 5.
+
+
+3. Pourquoi une température basse (0,1) pour un agent qui écrit du SQL ?
+Une température basse rend les réponses du modèle plus prévisibles, cohérentes et moins créatives.
+
+Pour écrire du SQL, on recherche surtout de la précision et de la fiabilité, pas de l'originalité.
+
+Une température plus élevée serait préférable pour des tâches créatives, comme :
+- rédiger des slogans publicitaires ;
+- inventer des histoires ;
+- proposer des idées de campagnes marketing ;
+- trouver plusieurs idées originales.
+
+
+4. Quels réglages risquent le plus d'être modifiés pendant la mise au point ? Lesquels ne devraient presque jamais changer ?
+Réglages susceptibles de changer souvent :
+- LLM_MODEL : pour tester différents modèles ;
+- LLM_TEMPERATURE : pour ajuster le comportement du modèle ;
+- les paramètres de génération : pour tester différentes réponses.
+
+
+
+
+
+Réponse : Bonjour Lina ! Enchantée de faire votre connaissance. Comment puis-je vous aider aujourd'hui ?
+Tokens lus : 37
+Tokens générés : 23
+Durée : 24.07 secondes
+
+
+
+
+Code HTTP : 200
+Réponse : Bonjour Lina ! Enchantée de faire votre connaissance. Comment puis-je vous aider aujourd'hui ?
+Tokens lus : 37
+Tokens générés : 23
+Durée : 6.67 secondes
+(.venv) PS C:\Users\mayss\Downloads\datapilot_kit\datapilot>
+
+
+Code HTTP : 200
+Réponse : Pour répondre à votre question, je devrais connaître votre nom. Malheureusement, je n'ai pas d'informations sur votre identité personnelle. Si vous souhaitez me dire votre nom, je serai ravi de vous appeler par votre prénom dans nos conversations futures.
+Tokens lus : 36
+Tokens générés : 62
+Durée : 12.85 secondes
+
+
+
+1 - si je pose la meme question deux fois le modéle repond plus rapidement le modéle n'a pas de mémoire
+
+2- L'option "format": "json" oblige le modèle à produire une réponse au format JSON plutôt qu'un texte libre
+
+3- Le compteur prompt_eval_count augmente quand vous ajoutez un message system. Pourquoi ? Quelle conséquence pour un system prompt de 1 000 tokens envoyé à chaque question ?
+Le compteur prompt_eval_count augmente parce que le message system est ajouté au prompt envoyé au modèle. Le modèle doit donc analyser ces tokens avant de générer sa réponse
+
+4- Sans le code de l'expérience 3 ou le résultat de l'erreur, je ne peux pas identifier avec certitude l'exception exacte.
+
+Cependant, si l'expérience concerne une erreur lors de l'appel à l'API ou du traitement de la réponse, il peut s'agir d'une exception comme JSONDecodeError, ValueError ou APIError, selon le problème rencontré.
+
+
 
